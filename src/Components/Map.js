@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { StylesContext } from "../Themes/StylesContext";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -80,8 +80,7 @@ const Map = () => {
     libraries,
   });
 
-  // const [map, setMap] = React.useState(null);
-
+  const [markers, setMarkers] = React.useState([center]);
   // const onLoad = React.useCallback(function callback(map) {
   //   const bounds = new window.google.maps.LatLngBounds(center);
   //   map.fitBounds(bounds);
@@ -122,10 +121,35 @@ const Map = () => {
             center={center}
             zoom={11}
             options={options}
+            onClick={(event) => {
+              setMarkers((currentMarker) => {
+                return [
+                  ...currentMarker,
+                  {
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng(),
+                    time: new Date(),
+                  },
+                ];
+              });
+            }}
             // onLoad={onLoad}
             // onUnmount={onUnmount}
           >
-            {/* Child components, such as markers, info windows, etc. */}
+            {markers.map((marker, id) => {
+              return (
+                <Marker
+                  key={id}
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                  icon={{
+                    url: "/beer.svg",
+                    scaledSize: new window.google.maps.Size(30, 30),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                  }}
+                />
+              );
+            })}
           </GoogleMap>
         </Box>
       </Grid>
