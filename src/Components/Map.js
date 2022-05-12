@@ -1,21 +1,78 @@
 import * as React from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { StylesContext } from "../Themes/StylesContext";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Container from "@mui/material/Container";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Map = () => {
+  const matches = useMediaQuery("(min-width:600px)");
+
+  const styles = matches
+    ? {
+        paddingTop: "50px",
+        paddingLeft: "40px",
+        width: "100%",
+        boxShadow: "none",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "100vh",
+        margin: "0 auto",
+      }
+    : {
+        paddingTop: "50px",
+        paddingLeft: "0px",
+        width: "100%",
+        boxShadow: "none",
+      };
+  const stylesMap = matches
+    ? {
+        width: "100%",
+        margin: "0 auto",
+        paddingLeft: "50px",
+        boxShadow: "none",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+      }
+    : {
+        width: "100%",
+        margin: "0 auto",
+        height: "40vh",
+        boxShadow: "none",
+        overflow: "hidden",
+      };
+  const mapPaddingStyle = matches
+    ? {
+        overflow: "hidden",
+        boxShadow: "none",
+        paddingTop: "40px",
+        marginBottom: "50px",
+      }
+    : {
+        overflow: "hidden",
+        boxShadow: "none",
+        paddingTop: "0px",
+        marginBottom: "50px",
+      };
+
   const containerStyle = {
-    width: "400px",
-    height: "400px",
+    width: "100%",
+    height: "85vh",
   };
 
   const center = {
-    lat: 55.95325,
+    lat: 55.87777,
     lng: -3.18826,
   };
 
   const libraries = ["places"];
   const style = React.useContext(StylesContext);
-  const options = { styles: style };
+  const options = { styles: style, disableDefaultUI: true, zoomControl: true };
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -38,20 +95,41 @@ const Map = () => {
   if (!isLoaded) return "Loading Maps ...";
   if (loadError) return "Erro Loading Maps";
 
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      options={options}
-      // onLoad={onLoad}
-      // onUnmount={onUnmount}
+  return (
+    <Grid
+      container
+      sx={styles}
+      elevation={10}
+      component={Paper}
+      square
+      bgcolor={"grey"}
     >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
-  ) : (
-    <></>
+      <Grid
+        item
+        xs={100}
+        sm={4}
+        md={7}
+        maxWidth="xl"
+        elevation={15}
+        component={Paper}
+        square
+        bgcolor={"grey"}
+        sx={mapPaddingStyle}
+      >
+        <Box direction="row" justifyContent="end" display="flex" sx={stylesMap}>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={11}
+            options={options}
+            // onLoad={onLoad}
+            // onUnmount={onUnmount}
+          >
+            {/* Child components, such as markers, info windows, etc. */}
+          </GoogleMap>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -6,7 +6,7 @@ import * as React from "react";
 const App = () => {
   const styles = Styles();
   return (
-    <StylesContext.Provider value={styles.modest}>
+    <StylesContext.Provider value={styles.light}>
       <Map />
     </StylesContext.Provider>
   );
