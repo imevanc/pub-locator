@@ -1,5 +1,11 @@
-import * as React from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import React from "react";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+
 import { StylesContext } from "../Themes/StylesContext";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -7,6 +13,18 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+const containerStyle = {
+  width: "100%",
+  height: "85vh",
+};
+
+const center = {
+  lat: 55.9277,
+  lng: -3.18826,
+};
+
+const libraries = ["places"];
 
 const Map = () => {
   const matches = useMediaQuery("(min-width:600px)");
@@ -60,39 +78,33 @@ const Map = () => {
         marginBottom: "50px",
       };
 
-  const containerStyle = {
-    width: "100%",
-    height: "85vh",
-  };
-
-  const center = {
-    lat: 55.87777,
-    lng: -3.18826,
-  };
-
-  const libraries = ["places"];
   const style = React.useContext(StylesContext);
   const options = { styles: style, disableDefaultUI: true, zoomControl: true };
-
-  const { isLoaded, loadError } = useJsApiLoader({
-    id: "google-map-script",
+  const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+  const [markers, setMarkers] = React.useState([]);
+  const [clickedMarker, setClickedMarker] = React.useState(null);
 
-  const [markers, setMarkers] = React.useState([center]);
-  // const onLoad = React.useCallback(function callback(map) {
-  //   const bounds = new window.google.maps.LatLngBounds(center);
-  //   map.fitBounds(bounds);
-  //   setMap(map);
-  // }, []);
+  const onMapClick = React.useCallback((e) => {
+    setMarkers((current) => [
+      ...current,
+      {
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+        time: new Date(),
+      },
+    ]);
+  }, []);
 
-  // const onUnmount = React.useCallback(function callback(map) {
-  //   setMap(null);
-  // }, []);
+  const mapRef = React.useRef();
+  const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+  }, []);
 
-  if (!isLoaded) return "Loading Maps ...";
-  if (loadError) return "Erro Loading Maps";
+  if (loadError) return "Error";
+  if (!isLoaded) return "Loading...";
 
   return (
     <Grid
@@ -117,39 +129,51 @@ const Map = () => {
       >
         <Box direction="row" justifyContent="end" display="flex" sx={stylesMap}>
           <GoogleMap
+            id="map"
             mapContainerStyle={containerStyle}
+            zoom={12}
             center={center}
-            zoom={11}
             options={options}
-            onClick={(event) => {
-              setMarkers((currentMarker) => {
-                return [
-                  ...currentMarker,
-                  {
-                    lat: event.latLng.lat(),
-                    lng: event.latLng.lng(),
-                    time: new Date(),
-                  },
-                ];
-              });
-            }}
-            // onLoad={onLoad}
-            // onUnmount={onUnmount}
+            onClick={onMapClick}
+            onLoad={onMapLoad}
           >
-            {markers.map((marker, id) => {
-              return (
-                <Marker
-                  key={id}
-                  position={{ lat: marker.lat, lng: marker.lng }}
-                  icon={{
-                    url: "/beer.svg",
-                    scaledSize: new window.google.maps.Size(30, 30),
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15),
-                  }}
-                />
-              );
-            })}
+            {markers.map((marker, idx) => (
+              <Marker
+                key={idx}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                onClick={() => {
+                  setClickedMarker(marker);
+                }}
+                icon={{
+                  url: `/beer.svg`,
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                  scaledSize: new window.google.maps.Size(30, 30),
+                }}
+              />
+            ))}
+
+            {clickedMarker ? (
+              <InfoWindow
+                position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
+                onCloseClick={() => {
+                  setClickedMarker(null);
+                }}
+              >
+                <Grid container spacing={2} direction="column">
+                  <Grid item xs={4} md={2}>
+                    <Typography sx={{ fontSize: "0.8rem" }}>
+                      Text only 1
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4} md={2}>
+                    <Typography sx={{ fontSize: "0.8rem" }}>
+                      Text only 2
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </InfoWindow>
+            ) : null}
           </GoogleMap>
         </Box>
       </Grid>
@@ -157,4 +181,4 @@ const Map = () => {
   );
 };
 
-export default React.memo(Map);
+export default Map;
