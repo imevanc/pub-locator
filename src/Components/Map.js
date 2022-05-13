@@ -1,7 +1,7 @@
 import React from "react";
 import {
   GoogleMap,
-  useLoadScript,
+  useJsApiLoader,
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
@@ -11,11 +11,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Container from "@mui/material/Container";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const containerStyle = {
-  width: "100%",
+  width: "100vw",
   height: "85vh",
 };
 
@@ -80,33 +79,31 @@ const Map = () => {
 
   const style = React.useContext(StylesContext);
   const options = { styles: style, disableDefaultUI: true, zoomControl: true };
-  const { isLoaded, loadError } = useLoadScript({
+  // const options = { disableDefaultUI: true, zoomControl: true };
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const [markers, setMarkers] = React.useState([]);
+  const [markers, setMarkers] = React.useState([
+    { lat: 55.9222, lng: -3.2121 },
+    { lat: 55.9322, lng: -3.254 },
+  ]);
+  const [map, setMap] = React.useState(null);
+  const onLoad = React.useCallback((map) => {
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(() => {
+    setMap(null);
+  }, []);
+
   const [clickedMarker, setClickedMarker] = React.useState(null);
 
-  const onMapClick = React.useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  }, []);
-
-  const mapRef = React.useRef();
-  const onMapLoad = React.useCallback((map) => {
-    mapRef.current = map;
-  }, []);
-
   if (loadError) return "Error";
-  if (!isLoaded) return "Loading...";
 
-  return (
+  return isLoaded ? (
     <Grid
       container
       sx={styles}
@@ -131,28 +128,29 @@ const Map = () => {
           <GoogleMap
             id="map"
             mapContainerStyle={containerStyle}
-            zoom={12}
             center={center}
+            zoom={11}
             options={options}
-            onClick={onMapClick}
-            onLoad={onMapLoad}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
           >
-            {markers.map((marker, idx) => (
-              <Marker
-                key={idx}
-                position={{ lat: marker.lat, lng: marker.lng }}
-                onClick={() => {
-                  setClickedMarker(marker);
-                }}
-                icon={{
-                  url: `/beer.svg`,
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                  scaledSize: new window.google.maps.Size(30, 30),
-                }}
-              />
-            ))}
-
+            {markers.map((marker, idx) => {
+              return (
+                <Marker
+                  key={idx}
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                  onClick={() => {
+                    setClickedMarker(marker);
+                  }}
+                  icon={{
+                    url: `/beer.svg`,
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                    scaledSize: new window.google.maps.Size(30, 30),
+                  }}
+                ></Marker>
+              );
+            })}
             {clickedMarker ? (
               <InfoWindow
                 position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
@@ -178,6 +176,8 @@ const Map = () => {
         </Box>
       </Grid>
     </Grid>
+  ) : (
+    <></>
   );
 };
 
