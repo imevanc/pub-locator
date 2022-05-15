@@ -26,7 +26,11 @@ const libraries = ["places"];
 
 const Map = (props) => {
   const style = React.useContext(StylesContext);
-  const options = { styles: style, disableDefaultUI: true, zoomControl: true };
+  const options = {
+    styles: style.styles,
+    disableDefaultUI: true,
+    zoomControl: true,
+  };
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -57,7 +61,6 @@ const Map = (props) => {
         elevation={15}
         component={Paper}
         square
-        bgcolor={"grey"}
       >
         <Box justifyContent="center" sx={{ display: "flex" }}>
           <GoogleMap
