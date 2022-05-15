@@ -10,11 +10,10 @@ import { StylesContext } from "../Themes/StylesContext";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 
 const containerStyle = {
-  width: "100vw",
-  height: "85vh",
+  width: "80vw",
+  height: "78vh",
 };
 
 const center = {
@@ -26,7 +25,11 @@ const libraries = ["places"];
 
 const Map = (props) => {
   const style = React.useContext(StylesContext);
-  const options = { styles: style, disableDefaultUI: true, zoomControl: true };
+  const options = {
+    styles: style.styles,
+    disableDefaultUI: true,
+    zoomControl: true,
+  };
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -48,69 +51,52 @@ const Map = (props) => {
   if (loadError) return "Error";
 
   return isLoaded ? (
-    <Grid container elevation={15} component={Paper} square bgcolor={"grey"}>
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        elevation={15}
-        component={Paper}
-        square
-        bgcolor={"grey"}
+    <Box justifyContent="center" sx={{ display: "flex" }}>
+      <GoogleMap
+        id="map"
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={12}
+        options={options}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
       >
-        <Box justifyContent="center" sx={{ display: "flex" }}>
-          <GoogleMap
-            id="map"
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={12}
-            options={options}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
+        {markers.map((marker, idx) => {
+          return (
+            <Marker
+              key={idx}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={() => {
+                setClickedMarker(marker);
+              }}
+              icon={{
+                url: `/beer.svg`,
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+            ></Marker>
+          );
+        })}
+        {clickedMarker ? (
+          <InfoWindow
+            position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
+            onCloseClick={() => {
+              setClickedMarker(null);
+            }}
           >
-            {markers.map((marker, idx) => {
-              return (
-                <Marker
-                  key={idx}
-                  position={{ lat: marker.lat, lng: marker.lng }}
-                  onClick={() => {
-                    setClickedMarker(marker);
-                  }}
-                  icon={{
-                    url: `/beer.svg`,
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15),
-                    scaledSize: new window.google.maps.Size(30, 30),
-                  }}
-                ></Marker>
-              );
-            })}
-            {clickedMarker ? (
-              <InfoWindow
-                position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
-                onCloseClick={() => {
-                  setClickedMarker(null);
-                }}
-              >
-                <Grid container spacing={2} direction="column">
-                  <Grid item xs={4} md={2}>
-                    <Typography sx={{ fontSize: "0.8rem" }}>
-                      Text only 1
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4} md={2}>
-                    <Typography sx={{ fontSize: "0.8rem" }}>
-                      Text only 2
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </InfoWindow>
-            ) : null}
-          </GoogleMap>
-        </Box>
-      </Grid>
-    </Grid>
+            <Grid container spacing={2} direction="column">
+              <Grid item xs={4} md={2}>
+                <Typography sx={{ fontSize: "0.8rem" }}>Text only 1</Typography>
+              </Grid>
+              <Grid item xs={4} md={2}>
+                <Typography sx={{ fontSize: "0.8rem" }}>Text only 2</Typography>
+              </Grid>
+            </Grid>
+          </InfoWindow>
+        ) : null}
+      </GoogleMap>
+    </Box>
   ) : (
     <></>
   );
