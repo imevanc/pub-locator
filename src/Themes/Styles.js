@@ -344,7 +344,7 @@ const lightMap = [
 ];
 
 const Styles = () => {
-  return { modest: modestMap, light: lightMap };
+  return { modest: modestMap, light: lightMap, classic: {} };
 };
 
 export default Styles;

@@ -21,8 +21,12 @@ const App = () => {
   }, []);
 
   return (
-    <StylesContext.Provider value={styles.modest}>
-      {pubLocations.length ? <Map /> : <LinearWithColor />}
+    <StylesContext.Provider value={styles.classic}>
+      {pubLocations.length ? (
+        <Map pubLocations={pubLocations} />
+      ) : (
+        <LinearWithColor />
+      )}
     </StylesContext.Provider>
   );
 };
