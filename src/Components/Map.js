@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 const containerStyle = {
   width: "100vw",
@@ -25,71 +24,16 @@ const center = {
 
 const libraries = ["places"];
 
-const Map = () => {
-  const matches = useMediaQuery("(min-width:600px)");
-
-  const styles = matches
-    ? {
-        paddingTop: "50px",
-        paddingLeft: "40px",
-        width: "100%",
-        boxShadow: "none",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: "100vh",
-        margin: "0 auto",
-      }
-    : {
-        paddingTop: "50px",
-        paddingLeft: "0px",
-        width: "100%",
-        boxShadow: "none",
-      };
-  const stylesMap = matches
-    ? {
-        width: "100%",
-        margin: "0 auto",
-        paddingLeft: "50px",
-        boxShadow: "none",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-      }
-    : {
-        width: "100%",
-        margin: "0 auto",
-        height: "40vh",
-        boxShadow: "none",
-        overflow: "hidden",
-      };
-  const mapPaddingStyle = matches
-    ? {
-        overflow: "hidden",
-        boxShadow: "none",
-        paddingTop: "40px",
-        marginBottom: "50px",
-      }
-    : {
-        overflow: "hidden",
-        boxShadow: "none",
-        paddingTop: "0px",
-        marginBottom: "50px",
-      };
-
+const Map = (props) => {
   const style = React.useContext(StylesContext);
   const options = { styles: style, disableDefaultUI: true, zoomControl: true };
-  // const options = { disableDefaultUI: true, zoomControl: true };
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const [markers, setMarkers] = React.useState([
-    { lat: 55.9222, lng: -3.2121 },
-    { lat: 55.9322, lng: -3.254 },
-  ]);
+  const [markers, setMarkers] = React.useState(props.pubLocations);
   const [map, setMap] = React.useState(null);
   const onLoad = React.useCallback((map) => {
     setMap(map);
@@ -104,32 +48,23 @@ const Map = () => {
   if (loadError) return "Error";
 
   return isLoaded ? (
-    <Grid
-      container
-      sx={styles}
-      elevation={10}
-      component={Paper}
-      square
-      bgcolor={"grey"}
-    >
+    <Grid container elevation={15} component={Paper} square bgcolor={"grey"}>
       <Grid
         item
-        xs={100}
+        xs={false}
         sm={4}
         md={7}
-        maxWidth="xl"
         elevation={15}
         component={Paper}
         square
         bgcolor={"grey"}
-        sx={mapPaddingStyle}
       >
-        <Box direction="row" justifyContent="end" display="flex" sx={stylesMap}>
+        <Box justifyContent="center" sx={{ display: "flex" }}>
           <GoogleMap
             id="map"
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={11}
+            zoom={12}
             options={options}
             onLoad={onLoad}
             onUnmount={onUnmount}
