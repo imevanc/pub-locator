@@ -15,6 +15,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useContext } from "react";
 import { StylesContext } from "../Themes/StylesContext";
+import BeerLogo from "./BeerLogo";
 
 const settings = ["happyamy2016", "logout"];
 
@@ -50,7 +51,7 @@ const Header = (props) => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              {/* <NCIcon /> */}
+              <BeerLogo />
             </Typography>
 
             <Typography
@@ -59,7 +60,7 @@ const Header = (props) => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              {/* <NCIcon /> */}
+              <BeerLogo />
             </Typography>
 
             <Typography

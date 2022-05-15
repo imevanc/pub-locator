@@ -10,6 +10,7 @@ const Theme = (ourMode) => {
       secondary: {
         main: "#f50000",
       },
+      icon: { border: "2px solid yellow", borderRadius: "40" },
       text: {
         main: "white",
       },

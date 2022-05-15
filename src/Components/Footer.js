@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import NCIcon from "./NCIcon";
+import BeerLogo from "./BeerLogo";
 import Grid from "@mui/material/Grid";
 
 import { useContext } from "react";
@@ -32,7 +32,7 @@ const Footer = () => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              {/* <NCIcon /> */}
+              <BeerLogo />
             </Typography>
 
             <Typography
@@ -41,7 +41,7 @@ const Footer = () => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              {/* <NCIcon /> */}
+              <BeerLogo />
             </Typography>
 
             <Typography
