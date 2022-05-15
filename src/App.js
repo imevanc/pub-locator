@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <StylesContext.Provider value={styles.modest}>
-      {pubLocations.leght ? <Map /> : <LinearWithColor />}
+      {pubLocations.length ? <Map /> : <LinearWithColor />}
     </StylesContext.Provider>
   );
 };
