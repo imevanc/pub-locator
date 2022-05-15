@@ -10,11 +10,14 @@ const App = () => {
 
   React.useEffect(() => {
     const fetchPubs = async () => {
-      return api.getPubs().then((res) => {
-        console.log(res);
-      });
+      return api
+        .getPubs()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => console.log(error));
     };
-    fetchPubs().catch((error) => console.log(error));
+    fetchPubs();
   }, []);
 
   return (
