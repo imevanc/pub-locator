@@ -5,7 +5,7 @@ const Theme = (ourMode) => {
     palette: {
       mode: ourMode,
       primary: {
-        main: "#2e40a6",
+        main: "#43a047",
       },
       secondary: {
         main: "#f50000",

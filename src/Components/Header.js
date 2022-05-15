@@ -70,7 +70,7 @@ const Header = (props) => {
                 display: { xs: "none", md: "flex" },
               }}
             >
-              NC-NEWS
+              Pubs-Plotter
             </Typography>
 
             <FormGroup>
