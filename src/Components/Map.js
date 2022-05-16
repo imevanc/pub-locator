@@ -51,7 +51,7 @@ const Map = (props) => {
   if (loadError) return "Error";
 
   return isLoaded ? (
-    <Box justifyContent="center" sx={{ display: "flex" }}>
+    <Box sx={style.theme.palette.box}>
       <GoogleMap
         id="map"
         mapContainerStyle={containerStyle}

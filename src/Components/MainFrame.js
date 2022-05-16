@@ -37,14 +37,8 @@ const MainFrame = () => {
   }, []);
 
   return (
-    <Container style={{ paddingTop: "10px" }}>
-      <Grid
-        container
-        spacing={4}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: "90vh" }}
-      >
+    <Container style={{ paddingTop: "40px" }}>
+      <Grid container spacing={4} alignItems="center" justifyContent="center">
         <Grid item xs={false} sm={4} md={7}>
           {pubLocations.length && imgURLs.length ? (
             <Map imgURLs={imgURLs} pubLocations={pubLocations} />
