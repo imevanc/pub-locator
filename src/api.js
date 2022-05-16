@@ -25,3 +25,22 @@ export const getImg = async () => {
     console.log(error);
   }
 };
+
+export const getAddress = async (lat, lng) => {
+  console.log(lat);
+  try {
+    const res = await axios.get("/postcodes", {
+      params: {
+        lon: `${lng}`,
+        lat: `${lat}`,
+      },
+      headers: {
+        Authorization: process.env.REACT_APP_PEXELS_API_KEY,
+      },
+    });
+    // return res.data;
+    console.log(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
