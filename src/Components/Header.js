@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+import Avatar from "react-avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -17,7 +17,7 @@ import { useContext } from "react";
 import { StylesContext } from "../Themes/StylesContext";
 import BeerLogo from "./BeerLogo";
 
-const settings = ["happyamy2016", "logout"];
+const settings = ["john_smith", "logout"];
 
 const Header = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -92,7 +92,7 @@ const Header = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" />
+                  <Avatar githubHandle="sitebase" size={50} round="40px" />
                 </IconButton>
               </Tooltip>
               <Menu

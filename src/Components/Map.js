@@ -5,7 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-
+import * as api from "../api";
 import { StylesContext } from "../Themes/StylesContext";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -48,10 +48,27 @@ const Map = (props) => {
 
   const [clickedMarker, setClickedMarker] = React.useState(null);
 
+  // const handleClick = (marker) => {
+  //   // if (marker) console.log("+_++++++++++++", typeof marker.latLng.lat());
+  //   setClickedMarker(marker);
+  //   if (marker) {
+  //     api
+  //       .getAddress(
+  //         clickedMarker.latLng.lat().toString(),
+  //         clickedMarker.latLng.lng().toString().toString()
+  //       )
+  //       .then((res) => {
+  //         console.log(res);
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
+  // };
+  // React.useEffect(handleClick, []);
+
   if (loadError) return "Error";
 
   return isLoaded ? (
-    <Box justifyContent="center" sx={{ display: "flex" }}>
+    <Box sx={style.theme.palette.box}>
       <GoogleMap
         id="map"
         mapContainerStyle={containerStyle}
@@ -66,9 +83,7 @@ const Map = (props) => {
             <Marker
               key={idx}
               position={{ lat: marker.lat, lng: marker.lng }}
-              onClick={() => {
-                setClickedMarker(marker);
-              }}
+              onClick={() => setClickedMarker(marker)}
               icon={{
                 url: `/beer.svg`,
                 origin: new window.google.maps.Point(0, 0),

@@ -14,11 +14,21 @@ const Theme = (ourMode) => {
       text: {
         main: "white",
       },
+      list: {
+        width: "100%",
+        maxWidth: 360,
+        bgcolor: "background.paper",
+        flexGrow: 1,
+        flexDirection: "column",
+        display: { xs: "none", md: "flex" },
+      },
+      box: {
+        marginLeft: "10px",
+        justifyContent: "center",
+        display: { xs: "flex", md: "flex" },
+      },
       typography: {
         fontSize: "1.4rem",
-      },
-      action: {
-        active: "#001E3C",
       },
       button: {
         fontSize: "1.4rem",
@@ -28,11 +38,6 @@ const Theme = (ourMode) => {
         },
         secondary: {
           main: "2e40a6",
-        },
-      },
-      expansionPanel: {
-        primary: {
-          main: "#F7F7F7",
         },
       },
       progressBar: {
