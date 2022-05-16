@@ -14,6 +14,7 @@ const Theme = (ourMode) => {
       text: {
         main: "white",
       },
+      list: { width: "100%", maxWidth: 360, bgcolor: "background.paper" },
       typography: {
         fontSize: "1.4rem",
       },
