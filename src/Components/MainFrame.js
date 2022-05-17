@@ -33,10 +33,7 @@ const MainFrame = () => {
         .getImg()
         .then((res) => {
           setErrorImg(null);
-          return res;
-        })
-        .then((fetchedImgs) => {
-          setImgURLs(fetchedImgs.map((img) => img.src.landscape));
+          setImgURLs(res.map((img) => img.src.landscape));
         })
         .catch((error) => {
           console.log(error);
