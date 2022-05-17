@@ -1,6 +1,7 @@
 import * as api from "../api";
 import * as React from "react";
 import Container from "@mui/material/Container";
+import ErrorCard from "./ErrorCard";
 import Grid from "@mui/material/Grid";
 import LinearWithColor from "./LinearWithColor";
 import MapFrame from "./MapFrame";
@@ -11,6 +12,8 @@ const MainFrame = () => {
   const [imgURLs, setImgURLs] = React.useState([]);
   const [clickedMarker, setClickedMarker] = React.useState("");
   const [postcode, setPostcode] = React.useState(null);
+  const [errorPubs, setErrorPubs] = React.useState(null);
+  const [errorImg, setErrorImg] = React.useState(null);
 
   React.useEffect(() => {
     const fetchPubs = async () => {
@@ -18,24 +21,33 @@ const MainFrame = () => {
         .getPubs()
         .then((res) => {
           setPubLocations(res);
+          setErrorPubs(null);
         })
-        .catch((error) => console.log(error));
+        .catch((error) =>
+          setErrorPubs("Failed to fetch the locations of the pubs.")
+        );
     };
     fetchPubs();
     const fetchImg = async () => {
       return api
         .getImg()
         .then((res) => {
+          setErrorImg(null);
           return res;
         })
         .then((fetchedImgs) => {
           setImgURLs(fetchedImgs.map((img) => img.src.landscape));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => setErrorImg("Failed to fetch the image urls"));
     };
     fetchImg();
   }, []);
-
+  if (errorPubs) {
+    return <ErrorCard msg={errorPubs} />;
+  }
+  if (errorImg) {
+    return <ErrorCard msg={errorImg} />;
+  }
   return (
     <Container style={{ paddingTop: "40px" }}>
       <Grid container spacing={4} alignItems="center" justifyContent="center">
