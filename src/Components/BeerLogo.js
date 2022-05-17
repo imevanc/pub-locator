@@ -1,6 +1,6 @@
 import { StylesContext } from "../Themes/StylesContext";
-import Avatar from "@mui/material/Avatar";
 import * as React from "react";
+import Avatar from "@mui/material/Avatar";
 
 const BeerLogo = () => {
   const theme = React.useContext(StylesContext);

@@ -1,21 +1,20 @@
+import { StylesContext } from "../Themes/StylesContext";
+import { useContext } from "react";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "react-avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-
-import CustomSwitch from "./CustomSwitch";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { useContext } from "react";
-import { StylesContext } from "../Themes/StylesContext";
 import BeerLogo from "./BeerLogo";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import CustomSwitch from "./CustomSwitch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
 const settings = ["john_smith", "logout"];
 

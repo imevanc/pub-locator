@@ -1,13 +1,12 @@
+import { StylesContext } from "../Themes/StylesContext";
+import { useContext } from "react";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
+import BeerLogo from "./BeerLogo";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import BeerLogo from "./BeerLogo";
-import Grid from "@mui/material/Grid";
-
-import { useContext } from "react";
-import { StylesContext } from "../Themes/StylesContext";
 
 const Footer = () => {
   const theme = useContext(StylesContext);

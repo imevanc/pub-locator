@@ -1,15 +1,8 @@
-import React from "react";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-import * as api from "../api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { StylesContext } from "../Themes/StylesContext";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import ErrorCard from "./ErrorCard";
+import React from "react";
 
 const containerStyle = {
   width: "80vw",
@@ -23,7 +16,7 @@ const center = {
 
 const libraries = ["places"];
 
-const Map = (props) => {
+const MapFrame = (props) => {
   const style = React.useContext(StylesContext);
   const options = {
     styles: style.styles,
@@ -46,7 +39,7 @@ const Map = (props) => {
     setMap(null);
   }, []);
 
-  if (loadError) return "Error";
+  if (loadError) return <ErrorCard msg={"Map Load Error"} />;
 
   return isLoaded ? (
     <Box sx={style.theme.palette.box}>
@@ -82,4 +75,4 @@ const Map = (props) => {
   );
 };
 
-export default Map;
+export default MapFrame;
