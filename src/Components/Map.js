@@ -64,8 +64,8 @@ const Map = (props) => {
             <Marker
               key={idx}
               position={{ lat: marker.lat, lng: marker.lng }}
-              // onClick={() => handleClick(marker)}
               onClick={() => props.setClickedMarker(marker)}
+              onRightClick={() => props.setClickedMarker(null)}
               icon={{
                 url: `/beer.svg`,
                 origin: new window.google.maps.Point(0, 0),
@@ -75,26 +75,6 @@ const Map = (props) => {
             ></Marker>
           );
         })}
-        {props.clickedMarker ? (
-          <InfoWindow
-            position={{
-              lat: props.clickedMarker.lat,
-              lng: props.clickedMarker.lng,
-            }}
-            onCloseClick={() => {
-              props.setClickedMarker(null);
-            }}
-          >
-            <Grid container spacing={2} direction="column">
-              <Grid item xs={4} md={2}>
-                <Typography sx={{ fontSize: "0.8rem" }}>Text only 1</Typography>
-              </Grid>
-              <Grid item xs={4} md={2}>
-                <Typography sx={{ fontSize: "0.8rem" }}>Text only 2</Typography>
-              </Grid>
-            </Grid>
-          </InfoWindow>
-        ) : null}
       </GoogleMap>
     </Box>
   ) : (

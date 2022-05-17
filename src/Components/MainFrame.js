@@ -11,7 +11,8 @@ import * as api from "../api";
 const MainFrame = () => {
   const [pubLocations, setPubLocations] = React.useState([]);
   const [imgURLs, setImgURLs] = React.useState([]);
-  const [clickedMarker, setClickedMarker] = React.useState(null);
+  const [clickedMarker, setClickedMarker] = React.useState("");
+  const [postcode, setPostcode] = React.useState(null);
 
   React.useEffect(() => {
     const fetchPubs = async () => {
@@ -46,6 +47,8 @@ const MainFrame = () => {
               <Map
                 clickedMarker={clickedMarker}
                 setClickedMarker={setClickedMarker}
+                postcode={postcode}
+                setPostcode={setPostcode}
                 pubLocations={pubLocations}
               />
             </Grid>

@@ -32,6 +32,7 @@ export const getAddress = async (lat, lng) => {
       params: {
         lon: `${lng}`,
         lat: `${lat}`,
+        limit: 1,
       },
       headers: {
         Authorization: process.env.REACT_APP_PEXELS_API_KEY,
