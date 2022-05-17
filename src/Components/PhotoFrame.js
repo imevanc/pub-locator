@@ -21,18 +21,24 @@ const PhotoFrame = (props) => {
       />
 
       {props.clickedMarker ? (
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Pub {pubNumber}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            The Boy Who Lived. Mr and Mrs Dursley, of number four, Privet Drive,
-            were proud to say that they were perfectly normal, thank you very
-            much. They were the last people you’d expect to be involved in
-            anything strange or mysterious, because they just didn’t hold with
-            such nonsense.
-          </Typography>
-        </CardContent>
+        <React.Fragment>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Pub {pubNumber}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              The Boy Who Lived. Mr and Mrs Dursley, of number four, Privet
+              Drive, were proud to say that they were perfectly normal, thank
+              you very much. They were the last people you’d expect to be
+              involved in anything strange or mysterious, because they just
+              didn’t hold with such nonsense.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Book A Table</Button>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </React.Fragment>
       ) : (
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -49,11 +55,6 @@ const PhotoFrame = (props) => {
           </Typography>
         </CardContent>
       )}
-
-      <CardActions>
-        <Button size="small">Book A Table</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 };
