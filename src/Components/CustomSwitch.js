@@ -1,5 +1,5 @@
-import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
   width: 62,

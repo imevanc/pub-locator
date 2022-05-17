@@ -1,12 +1,10 @@
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Container from "@mui/material/Container";
-
-import Map from "./Map";
-import LinearWithColor from "./LinearWithColor";
-import PhotoFrame from "./PhotoFrame";
-import * as React from "react";
 import * as api from "../api";
+import * as React from "react";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import LinearWithColor from "./LinearWithColor";
+import MapFrame from "./MapFrame";
+import PhotoFrame from "./PhotoFrame";
 
 const MainFrame = () => {
   const [pubLocations, setPubLocations] = React.useState([]);
@@ -44,7 +42,7 @@ const MainFrame = () => {
         {pubLocations.length && imgURLs.length ? (
           <React.Fragment>
             <Grid item xs={false} sm={4} md={7}>
-              <Map
+              <MapFrame
                 clickedMarker={clickedMarker}
                 setClickedMarker={setClickedMarker}
                 postcode={postcode}
