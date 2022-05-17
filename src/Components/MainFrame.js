@@ -4,13 +4,15 @@ import Container from "@mui/material/Container";
 
 import Map from "./Map";
 import LinearWithColor from "./LinearWithColor";
-import ListOfPubs from "./ListOfPubs";
+import PhotoFrame from "./PhotoFrame";
 import * as React from "react";
 import * as api from "../api";
 
 const MainFrame = () => {
   const [pubLocations, setPubLocations] = React.useState([]);
   const [imgURLs, setImgURLs] = React.useState([]);
+  const [clickedMarker, setClickedMarker] = React.useState("");
+  const [postcode, setPostcode] = React.useState(null);
 
   React.useEffect(() => {
     const fetchPubs = async () => {
@@ -39,16 +41,24 @@ const MainFrame = () => {
   return (
     <Container style={{ paddingTop: "40px" }}>
       <Grid container spacing={4} alignItems="center" justifyContent="center">
-        <Grid item xs={false} sm={4} md={7}>
-          {pubLocations.length && imgURLs.length ? (
-            <Map imgURLs={imgURLs} pubLocations={pubLocations} />
-          ) : (
-            <LinearWithColor />
-          )}
-        </Grid>
-        <Grid item xs={false} sm={4} md={4}>
-          <ListOfPubs />
-        </Grid>
+        {pubLocations.length && imgURLs.length ? (
+          <React.Fragment>
+            <Grid item xs={false} sm={4} md={7}>
+              <Map
+                clickedMarker={clickedMarker}
+                setClickedMarker={setClickedMarker}
+                postcode={postcode}
+                setPostcode={setPostcode}
+                pubLocations={pubLocations}
+              />
+            </Grid>
+            <Grid item xs={false} sm={4} md={4}>
+              <PhotoFrame imgURLs={imgURLs} clickedMarker={clickedMarker} />
+            </Grid>
+          </React.Fragment>
+        ) : (
+          <LinearWithColor />
+        )}
       </Grid>
     </Container>
   );

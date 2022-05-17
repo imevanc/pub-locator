@@ -46,25 +46,6 @@ const Map = (props) => {
     setMap(null);
   }, []);
 
-  const [clickedMarker, setClickedMarker] = React.useState(null);
-
-  // const handleClick = (marker) => {
-  //   // if (marker) console.log("+_++++++++++++", typeof marker.latLng.lat());
-  //   setClickedMarker(marker);
-  //   if (marker) {
-  //     api
-  //       .getAddress(
-  //         clickedMarker.latLng.lat().toString(),
-  //         clickedMarker.latLng.lng().toString().toString()
-  //       )
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch((error) => console.log(error));
-  //   }
-  // };
-  // React.useEffect(handleClick, []);
-
   if (loadError) return "Error";
 
   return isLoaded ? (
@@ -83,7 +64,8 @@ const Map = (props) => {
             <Marker
               key={idx}
               position={{ lat: marker.lat, lng: marker.lng }}
-              onClick={() => setClickedMarker(marker)}
+              onClick={() => props.setClickedMarker(marker)}
+              onRightClick={() => props.setClickedMarker(null)}
               icon={{
                 url: `/beer.svg`,
                 origin: new window.google.maps.Point(0, 0),
@@ -93,23 +75,6 @@ const Map = (props) => {
             ></Marker>
           );
         })}
-        {clickedMarker ? (
-          <InfoWindow
-            position={{ lat: clickedMarker.lat, lng: clickedMarker.lng }}
-            onCloseClick={() => {
-              setClickedMarker(null);
-            }}
-          >
-            <Grid container spacing={2} direction="column">
-              <Grid item xs={4} md={2}>
-                <Typography sx={{ fontSize: "0.8rem" }}>Text only 1</Typography>
-              </Grid>
-              <Grid item xs={4} md={2}>
-                <Typography sx={{ fontSize: "0.8rem" }}>Text only 2</Typography>
-              </Grid>
-            </Grid>
-          </InfoWindow>
-        ) : null}
       </GoogleMap>
     </Box>
   ) : (
