@@ -38,7 +38,10 @@ const MainFrame = () => {
         .then((fetchedImgs) => {
           setImgURLs(fetchedImgs.map((img) => img.src.landscape));
         })
-        .catch((error) => setErrorImg("Failed to fetch the image urls"));
+        .catch((error) => {
+          console.log(error);
+          setErrorImg("Failed to fetch the image urls");
+        });
     };
     fetchImg();
   }, []);
