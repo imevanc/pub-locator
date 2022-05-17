@@ -20,6 +20,8 @@ The default page is the home page, where a user is logged in and they can change
 
 The custom error messages are svg files stored locally, which were taken from the undraw webpage. The react-router-dom package was used in order to coordinate errocard routes, when the user types an invalid path or the data is not fetched appropriately.
 
+A form of state management was done using the useContext hook for storing the dark/light colour configurations and google map api setups.
+
 # Tech Stack <a name="tech-stack"></a>
 
 ```
