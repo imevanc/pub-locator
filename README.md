@@ -1,9 +1,9 @@
-# SHOTSCOPE TECH TEST
+# Pub-Radar
 
 This is a JS application created with Material-UI, React.js & axios.
 
 # Table of contents
-- [SHOTSCOPE TECH TEST](#shotscope-tech-test)
+- [Pub-Radar](#pub-radar)
 - [Table of contents](#table-of-contents)
 - [General-Information <a name="general-information"></a>](#general-information-)
 - [Tech Stack <a name="tech-stack"></a>](#tech-stack-)
@@ -14,7 +14,7 @@ This is a JS application created with Material-UI, React.js & axios.
 
 # General-Information <a name="general-information"></a>
 
-The SHOTSCOPE TECH TEST app is my individual work on the take home test of the Shotscope. The hiring team provided me with an api link and the main purpose was to plot the locations of the pubs in Edinburgh, UK. I used uizard webpage for drafting a single-app page and wrote down state diagrams. The application was created with React.js and styled with the Material-UI framework. It is responsive and scalable; I considered both mobile and web views. If you enter into the responsive design from your browser, you can see changes on the design, as a few components are disabled when the screen resolution goes down.
+The main purpose was to plot the locations of the pubs in Edinburgh, UK. I used uizard webpage for drafting a single-app page and wrote down state diagrams. The application was created with React.js and styled with the Material-UI framework. It is responsive and scalable; I considered both mobile and web views. If you enter into the responsive design from your browser, you can see changes on the design, as a few components are disabled when the screen resolution goes down.
 
 The default page is the home page, where a user is logged in and they can change the mode of the webpage from light to dark. It's responsive for all users with the appropriate messages. The user can left-click on a beer marker and the will see the changes of that rendered on the pub card at the right hand side of the page. They need to right-click the same marker in order to disable the "clicked-message". The images are fetched from the Pexels API and the API coordination is done using proxy on create-react-app. 
 
@@ -62,13 +62,13 @@ HTML
 To run this project you will need to clone this repository onto your local machine.
 
 ```
-$ git clone https://github.com/imevanc/shotscope-tech-test.git
+$ git clone https://github.com/imevanc/pub-radar.git
 ```
 
 Navigate inside the folder and install all dependencies by entering the following commands on your terminal window:
 
 ```
-$ cd shotscope-tech-test
+$ cd pub-radar
 $ npm install
 ```
 
